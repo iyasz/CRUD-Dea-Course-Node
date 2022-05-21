@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgb(18, 18, 18);
+        }
+
+        h1 {
+            color:  rgb(234, 158, 17);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 42px;
+            letter-spacing: 0.5px;
+            margin-top: 160px;
+        }
+
+        .formUpdate {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .formTambah input {
+            padding: 9px 14px 9px 14px;
+            width: 255px;
+            outline: none;
+            margin-left: 10px;
+            font-size: 15px;
+            margin-top: 12px;
+        }
+
+        .btnUpdate {
+            background: none;
+            color: white;
+            border: solid 1px white;
+            border-radius: 15px;
+            cursor: pointer;
+            padding: 7px 24px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 200;
+            letter-spacing: 0.4px;
+            font-size: 13px;
+            margin: 30px 25px;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= player.tittle %></h1>
+
+<form class="formUpdate" action="/player/update" method="post">
+    <div class="formTambah">
+        <input type="text" hidden name="id" value="<%= player.data[0].id %>" />
+        <input type="number" name="id_ml" value="<%= player.data[0].id_ml %>" />
+        <input type="number" name="id_server" value="<%= player.data[0].id_server %>" />
+        <input type="text" name="name" value="<%= player.data[0].name %>" />
+        <br>
+        <input type="text" name="country" value="<%= player.data[0].country %>" />
+        <input type="text" name="role" value="<%= player.data[0].role %>" />
+    </div>
+    <br>
+    <div class="inputUpdate">
+        <input onclick="checker()" class="btnUpdate" type="submit" value="update" />
+        <a href="/"><button class="btnUpdate" >Cancel</button></a>
+    </div> 
+</form>
+
+<script>
+    function checker(){
+            var result = confirm('Klik Ok Jika Ingin Update Data player!');
+            if (result == false) {
+                event.preventDefault();
+            }
+         }
+</script>
+
+</body>
+</html>

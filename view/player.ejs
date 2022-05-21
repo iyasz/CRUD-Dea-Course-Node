@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgb(18, 18, 18);
+        }
+
+        body::-webkit-scrollbar {
+            width: 7px;
+        }
+ 
+        body::-webkit-scrollbar-track {
+           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+ 
+        body::-webkit-scrollbar-thumb {
+            background-color: rgb(152, 152, 152);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            color:  rgb(234, 158, 17);
+            letter-spacing: 0.4px;
+            margin-top: 140px;
+        }
+
+        .tambahHero, .tableData {
+            text-align: center;
+        }
+
+        .tableList th, td {
+            color: whitesmoke;
+        }
+        
+        .tableField th {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            padding-bottom: 8px;
+        }
+
+        .formTambah input {
+            padding: 9px 14px 9px 14px;
+            width: 255px;
+            outline: none;
+            margin-left: 10px;
+            font-size: 15px;
+            margin-top: 12px;
+        }
+
+        .btnTambah {
+            background: none;
+            color: white;
+            border: solid 1px white;
+            border-radius: 15px;
+            margin-top: 30px;
+            cursor: pointer;
+            padding: 9px 28px;
+            
+        }
+
+        .tableList {
+            margin-left: 130px;
+            margin-bottom: 120px;
+        }
+        .tableField th, .tableData td {
+            text-align: center;
+            padding: 0px 38px;
+        }
+
+        .tableField th {
+            padding-bottom: 20px;
+        }
+
+        .tableData td {
+            padding-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        .tableData a {
+            text-decoration: none;
+            color: white;
+            background-color: rgb(37, 60, 213);
+            padding: 3px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btnHapus {
+            text-decoration: none;
+            color: white;
+            background-color: rgb(213, 37, 37);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            margin-left: 5px;
+        }
+
+        p {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 200;
+            text-align: center;
+            font-size: 11px;
+            opacity: 60%;
+            letter-spacing: 0.4px;
+        }
+
+        .btnBack {
+            margin-left: 155px;
+            margin-top: 30px;
+        }
+
+        .btnBack button {
+            background: none;
+            color: white;
+            font-size: 28px;
+            border: solid white 1px;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 1px 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="btnBack">
+        <a href="/"><button><i class='bx bx-left-arrow-alt'></i></button></a>
+    </div>
+    <h1>TAMBAHKAN PLAYER</h1>
+        <form class="tambahHero" action="/player/add" method="post">
+            <div class="formTambah">
+                <input type="number" name="id_ml" placeholder="Isi No ID Player" />
+                <input type="number" name="id_server" placeholder="Isi No ID Server " />
+                <input type="text" name="name" placeholder="Isi Nama Player" />
+                <br>
+                <input type="text" name="country" placeholder="Isi Nama Negara Player" />
+                <input type="text" name="role" placeholder="Isi Role Player" />
+            </div>
+            <br>
+            <input onclick="checker()" class="btnTambah" type="submit" value="tambahkan" />
+        </form>
+    <h1>
+        <%= players.tittle %> 
+    </h1>
+        <table class="tableList">
+            <tr class="tableField">
+                <th>No</th>
+                <th>ID Player</th>
+                <th>ID Server</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            <% for (let i = 0; i < players.data.length; i++) { %>
+                <tr class="tableData">
+                    <td><%= i + 1 %></td>
+                    <td><%= players.data[i].id_ml %></td>
+                    <td><%= players.data[i].id_server %></td>
+                    <td><%= players.data[i].name %></td>
+                    <td><%= players.data[i].country %></td>
+                    <td><%= players.data[i].role %></td>
+                <form action="/player/remove/" method="post">
+                    <td><a href="/player/<%= players.data[i].id %>">Edit</a>
+                        <input type="text" hidden name="id" value="<%= players.data[i].id %>"/>
+                        <input onclick="hapus()" class="btnHapus" type="submit" value="Delete" />
+                    </td>
+                </form>
+                </tr>    
+            <% } %>
+        </table>
+        <p>© Mobile Legends Ngab Ngab. All Right Reserved.</p>
+        <script>
+        function checker(){
+            var result = confirm('Klik Ok Jika Ingin Menambah Data Hero!');
+            if (result == false) {
+                event.preventDefault();
+            }
+         }
+
+         function hapus(){
+            var result = confirm('Klik Ok Jika Ingin Menghapus Data Hero!');
+            if (result == false) {
+                event.preventDefault();
+            }
+         }
+        </script>
+        
+</body>
+</html>
